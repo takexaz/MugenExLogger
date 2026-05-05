@@ -1,3 +1,6 @@
 [submodule "deps/safetyhook"]
 	path = deps/safetyhook
 	url = https://github.com/cursey/safetyhook.git
+[submodule "deps/spdlog"]
+	path = deps/spdlog
+	url = https://github.com/gabime/spdlog.git
