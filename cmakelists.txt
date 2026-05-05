@@ -1,0 +1,39 @@
+cmake_minimum_required (VERSION 3.15)
+project (EleKit.Native VERSION 0.0.1)
+
+enable_language(CXX)
+set(CMAKE_CXX_STANDARD 20)
+
+file(GLOB src src/*.cc)
+file(GLOB include include/*.h)
+
+# 共有ライブラリを作成
+add_library (
+	${PROJECT_NAME} SHARED
+	${src}
+	${include}
+)
+
+set(MUGEN_DIRECTORY ${PROJECT_SOURCE_DIR}/../mugen/)
+
+# バージョン情報をヘッダーファイルに埋め込む
+configure_file(
+  "${CMAKE_CURRENT_SOURCE_DIR}/include/_version.h.in"
+  "${CMAKE_CURRENT_SOURCE_DIR}/include/_version.h"
+)
+
+# エイリアスターゲットを定義
+add_library (${PROJECT_NAME}::${PROJECT_NAME} ALIAS ${PROJECT_NAME})
+
+# インクルードディレクトリを指定
+target_include_directories (
+	${PROJECT_NAME}
+	PRIVATE
+	${CMAKE_CURRENT_SOURCE_DIR}/include
+)
+target_include_directories (
+	${PROJECT_NAME}
+	PUBLIC
+	$<BUILD_INTERFACE:${CMAKE_CURRENT_SOURCE_DIR}/share>
+	$<INSTALL_INTERFACE:include>
+)
