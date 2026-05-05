@@ -1,8 +1,8 @@
 cmake_minimum_required (VERSION 3.15)
-project (EleKit.Native VERSION 0.0.1)
+project (ExLogger VERSION 0.0.1)
 
 enable_language(CXX)
-set(CMAKE_CXX_STANDARD 20)
+set(CMAKE_CXX_STANDARD 23)
 
 file(GLOB src src/*.cc)
 file(GLOB include include/*.h)
@@ -15,6 +15,11 @@ add_library (
 )
 
 set(MUGEN_DIRECTORY ${PROJECT_SOURCE_DIR}/../mugen/)
+add_custom_command(TARGET ${PROJECT_NAME} POST_BUILD
+    COMMAND ${CMAKE_COMMAND} -E copy
+        $<TARGET_FILE:${PROJECT_NAME}>
+        ${MUGEN_DIRECTORY}/plugins/$<TARGET_FILE_BASE_NAME:${PROJECT_NAME}>.asi
+)
 
 # バージョン情報をヘッダーファイルに埋め込む
 configure_file(
@@ -37,3 +42,11 @@ target_include_directories (
 	$<BUILD_INTERFACE:${CMAKE_CURRENT_SOURCE_DIR}/share>
 	$<INSTALL_INTERFACE:include>
 )
+
+# spdlogをライブラリに追加
+add_subdirectory(deps/spdlog)
+target_link_libraries(${PROJECT_NAME} PRIVATE spdlog::spdlog)
+
+# safetyhookをライブラリに追加
+add_subdirectory(deps/safetyhook)
+target_link_libraries(${PROJECT_NAME} PRIVATE safetyhook::safetyhook)
