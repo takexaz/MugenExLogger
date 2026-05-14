@@ -23,7 +23,7 @@ MUGENの試合中に追加のログを出力します。
 
 2. プラグインの配置
 
-   `plugins`フォルダを作成し、 **ExLogger.asi** を配置してください。
+   `plugins`フォルダを作成し、 [ExLogger.asi](https://github.com/takexaz/MugenExLogger/releases) を配置してください。
 
 3. 出力
 
