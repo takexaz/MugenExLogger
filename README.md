@@ -1,3 +1,8 @@
+# 注意
+他のMODとの同時使用はサポートしません
+# WARNING
+We do not support simultaneous use with other mods
+
 ## Mugen Extra Logger
 ### 概要
 MUGENの試合中に追加のログを出力します。
